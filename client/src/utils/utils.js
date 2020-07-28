@@ -7,3 +7,18 @@ export const mapSpeed = (race) => {
     }
     return speed;
 }
+
+export const calBonus = (skill) => {
+    let strBonus = Math.floor((skill)/2)-5;
+      if(strBonus>0) {
+        strBonus = `+${strBonus}`;
+    } else {
+        strBonus = strBonus;
+    }
+    return strBonus;
+}
+
+export const calProficiency = (level) => {
+    let proficiency = 2 + Math.floor(((level)/4) - (1/4));
+    return proficiency;
+}

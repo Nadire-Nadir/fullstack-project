@@ -7,6 +7,7 @@ const sheetHead = {
   color: 'white'
 }
 
+
 const CharacterSheet = () => (
       <div className="page" id="Csheet_page">
         <div className="page_content">

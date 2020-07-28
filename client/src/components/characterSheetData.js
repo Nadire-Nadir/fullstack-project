@@ -1,10 +1,16 @@
 import React from "react";
 import axios from "axios";
-import Spinner from "../components/spinner";
 import { withRouter } from "react-router-dom";
+import { mapSpeed } from "../utils/utils";
+import { calBonus } from "../utils/utils";
+import { calProficiency } from "../utils/utils";
+import { SAVING_THROWS } from "../config";
+import Spinner from "../components/spinner";
 import SkillList from "../components/skillList";
+import SavingThrows from "./savingThrows";
+import Ability from "./ability";
 import "../styles/characterSheet.css";
-import {mapSpeed} from "../utils/utils";
+
 
 class CharacterSheetData extends React.Component {
   constructor(props) {
@@ -37,6 +43,9 @@ class CharacterSheetData extends React.Component {
 
   render() {
     const { character, loading } = this.state;
+    const checkedSaving = SAVING_THROWS[character.class];
+    
+
     if (loading) {
       return (
         <div id="character_sheet">
@@ -45,13 +54,6 @@ class CharacterSheetData extends React.Component {
       );
     }
 
-    const proficiency = 2 + Math.floor(((character.level)/4) - (1/4));
-    const strBonus = Math.floor((character.strength)/2)-5;
-    const dexBonus = Math.floor((character.dexterity)/2)-5;
-    const conBonus = Math.floor((character.constitution)/2)-5;
-    const intBonus = Math.floor((character.intelligence)/2)-5;
-    const wisBonus = Math.floor((character.wisdom)/2)-5;
-    const chaBonus = Math.floor((character.charisma)/2)-5;
      
     return (
       <div id="charactersheet_detail">
@@ -67,7 +69,7 @@ class CharacterSheetData extends React.Component {
               <div id="basic_info_block_01">
                 <div className="basic_info_block_btn"><button className="action_btns">EDIT</button></div>   
                 <div className="basic_info_block_btn"><button className="action_btns">SHARE</button></div> 
-                <div className="basic_info_block_btn"><button className="action_btns">xxx</button></div> 
+                <div className="basic_info_block_btn"><button className="action_btns">REST</button></div> 
               </div>
             </div>
           </div>
@@ -77,66 +79,13 @@ class CharacterSheetData extends React.Component {
           <div className="block" id="block_01">
             <div id="block_01_up">
             <div id="core_skill_block">                            
-                <div className="core_skill b_g">
-                    <div className="core_skill_box_title">
-                        <p>STRENGTH</p>
-                    </div>
-                    <div className="core_skill_dice border b_g">{strBonus}</div>
-                    <div className="core_skill_value border">
-                        <p>{character.strength}</p>
-                    </div>
-                </div>
-
-                <div className="core_skill b_g">
-                    <div className="core_skill_box_title">
-                        <p>DEXTERITY</p>
-                    </div>
-                    <div className="core_skill_dice border b_g">{dexBonus}</div>
-                    <div className="core_skill_value border">
-                        <p>{character.dexterity}</p>
-                    </div>
-                </div>
-
-                <div className="core_skill b_g">
-                    <div className="core_skill_box_title">
-                        <p>CONSTITUTION</p>
-                    </div>
-                    <div className="core_skill_dice border b_g">{conBonus}</div>
-                    <div className="core_skill_value border">
-                         <p>{character.constitution}</p>
-                    </div>
-                </div>
-
-                <div className="core_skill b_g">
-                    <div className="core_skill_box_title">
-                        <p>INTELLIGENCE</p>
-                    </div>
-                    <div className="core_skill_dice border b_g">{intBonus}</div>
-                    <div className="core_skill_value border">
-                        <p>{character.intelligence}</p>
-                    </div>
-                </div>
-
-                <div className="core_skill b_g">
-                    <div className="core_skill_box_title">
-                        <p>WISDOM</p>
-                    </div>
-                    <div className="core_skill_dice border b_g">{wisBonus}</div>
-                    <div className="core_skill_value border">
-                        <p>{character.wisdom}</p>
-                    </div>
-                </div>
-
-                <div className="core_skill b_g">
-                    <div className="core_skill_box_title">
-                        <p>CHARISMA</p>
-                    </div>
-                    <div className="core_skill_dice border b_g">{chaBonus}</div>
-                    <div className="core_skill_value border">
-                        <p>{character.charisma}</p>
-                    </div>
-                </div> 
-                </div> 
+                <Ability BOX_TITLE="STRENGTH" SKILL_BONUS={calBonus(character.strength)} SKILL_VALUE={character.strength}/>
+                <Ability BOX_TITLE="DEXTERITY" SKILL_BONUS={calBonus(character.dexterity)} SKILL_VALUE={character.dexterity}/>
+                <Ability BOX_TITLE="CONSTITUTION" SKILL_BONUS={calBonus(character.constitution)} SKILL_VALUE={character.constitution}/>
+                <Ability BOX_TITLE="INTELLIGENCE" SKILL_BONUS={calBonus(character.intelligence)} SKILL_VALUE={character.intelligence}/>
+                <Ability BOX_TITLE="WISDOM" SKILL_BONUS={calBonus(character.wisdom)} SKILL_VALUE={character.wisdom}/>
+                <Ability BOX_TITLE="CHARISMA" SKILL_BONUS={calBonus(character.charisma)} SKILL_VALUE={character.charisma}/>
+            </div> 
            
             <div id="skill_2">
               <div className="skill_2_col b_g" id="inspiration_container">
@@ -150,59 +99,23 @@ class CharacterSheetData extends React.Component {
                   <p>PROFICIENCY BONUS</p>
                 </div>
                 <div className="value_box border b_g">
-                  <div id="pro_bonus">+ {proficiency}</div>
+                  <div id="pro_bonus">+ {calProficiency(character.level)}</div>
                 </div>
               </div>
               <div className="b_g" id="saving_throws_container">
                 <div className="content" id="saving_throws_content">
                   <div className="saving_throws">
                     <div className="saving_throws_row">
-                      <div className="saving_throws_item saving_throws_item_1">
-                        <div className="saving_throws_ability_prof"></div>
-                        <div className="saving_throws_ability_name">STR</div>
-                        <div className="saving_throws_ability_modifier">
-                          <div className=" border b_g bonus_box"></div>
-                        </div>
-                      </div>
-                      <div className="saving_throws_item">
-                        <div className="saving_throws_ability_prof"></div>
-                        <div className="saving_throws_ability_name">INT</div>
-                        <div className="saving_throws_ability_modifier">
-                          <div className=" border b_g bonus_box"></div>
-                        </div>
-                      </div>
+                      <SavingThrows className="saving_throws_item_1" SAVING_NAME="STR" SAVING={calBonus(character.strength)} />
+                      <SavingThrows SAVING_NAME="INT" SAVING={calBonus(character.intelligence)} />        
                     </div>
                     <div className="saving_throws_row">
-                      <div className="saving_throws_item saving_throws_item_1">
-                        <div className="saving_throws_ability_prof"></div>
-                        <div className="saving_throws_ability_name">DEX</div>
-                        <div className="saving_throws_ability_modifier">
-                          <div className=" border b_g bonus_box"></div>
-                        </div>
-                      </div>
-                      <div className="saving_throws_item">
-                        <div className="saving_throws_ability_prof"></div>
-                        <div className="saving_throws_ability_name">WIS</div>
-                        <div className="saving_throws_ability_modifier">
-                        <div className=" border b_g bonus_box"></div>
-                        </div>
-                      </div>
+                      <SavingThrows className="saving_throws_item_1" SAVING_NAME="DEX" SAVING={calBonus(character.dexterity)} />
+                      <SavingThrows SAVING_NAME="WIS" SAVING={calBonus(character.wisdom)} />
                     </div>
                     <div className="saving_throws_row">
-                      <div className="saving_throws_item saving_throws_item_1">
-                        <div className="saving_throws_ability_prof"></div>
-                        <div className="saving_throws_ability_name">CON</div>
-                        <div className="saving_throws_ability_modifier">
-                          <div className=" border b_g bonus_box"></div>
-                        </div>
-                      </div>
-                      <div className="saving_throws_item">
-                        <div className="saving_throws_ability_prof"></div>
-                        <div className="saving_throws_ability_name">CHA</div>
-                        <div className="saving_throws_ability_modifier">
-                          <div className=" border b_g bonus_box"></div>
-                        </div>
-                      </div>
+                      <SavingThrows className="saving_throws_item_1" SAVING_NAME="CON" SAVING={calBonus(character.constitution)} />
+                      <SavingThrows SAVING_NAME="CHA" SAVING={calBonus(character.charisma)} />
                     </div>
                   </div>
                   <div className="box_title">SAVING THROWS</div>
@@ -217,44 +130,24 @@ class CharacterSheetData extends React.Component {
                       <div className="li_item_skill">SKILL</div>
                       <div className="li_item">BONUS</div>
                     </div>
-                    <SkillList PROF="" MOD="DEX" SKILL="Acrobatics" BONUS="" />
-                    <SkillList
-                      PROF=""
-                      MOD="WIS"
-                      SKILL="Animal Handling"
-                      BONUS=""
-                    />
-                    <SkillList PROF="" MOD="INT" SKILL="Arcana" BONUS="" />
-                    <SkillList PROF="" MOD="STR" SKILL="Athletics" BONUS="" />
-                    <SkillList PROF="" MOD="CHA" SKILL="Deception" BONUS="" />
-                    <SkillList PROF="" MOD="INT" SKILL="History" BONUS="" />
-                    <SkillList PROF="" MOD="WIS" SKILL="Insight" BONUS="" />
-                    <SkillList
-                      PROF=""
-                      MOD="CHA"
-                      SKILL="Intimidation"
-                      BONUS=""
-                    />
-                    <SkillList
-                      PROF=""
-                      MOD="INT"
-                      SKILL="Investigation"
-                      BONUS=""
-                    />
-                    <SkillList PROF="" MOD="WIS" SKILL="Medicine" BONUS="" />
-                    <SkillList PROF="" MOD="INT" SKILL="Nature" BONUS="" />
-                    <SkillList PROF="" MOD="WIS" SKILL="Perception" BONUS="" />
-                    <SkillList PROF="" MOD="CHA" SKILL="Performance" BONUS="" />
-                    <SkillList PROF="" MOD="CHA" SKILL="Persuasion" BONUS="" />
-                    <SkillList PROF="" MOD="INT" SKILL="Religion" BONUS="" />
-                    <SkillList
-                      PROF=""
-                      MOD="DEX"
-                      SKILL="Sleight of Hand"
-                      BONUS=""
-                    />
-                    <SkillList PROF="" MOD="DEX" SKILL="Stealth" BONUS="" />
-                    <SkillList PROF="" MOD="WIS" SKILL="Survival" BONUS="" />
+                    <SkillList PROF="" MOD="DEX" SKILL="Acrobatics" BONUS={calBonus(character.dexterity)} />
+                    <SkillList PROF="" MOD="WIS" SKILL="Animal Handling" BONUS={calBonus(character.wisdom)} />
+                    <SkillList PROF="" MOD="INT" SKILL="Arcana" BONUS={calBonus(character.intelligence)} />
+                    <SkillList PROF="" MOD="STR" SKILL="Athletics" BONUS={calBonus(character.strength)} />
+                    <SkillList PROF="" MOD="CHA" SKILL="Deception" BONUS={calBonus(character.charisma)} />
+                    <SkillList PROF="" MOD="INT" SKILL="History" BONUS={calBonus(character.intelligence)} />
+                    <SkillList PROF="" MOD="WIS" SKILL="Insight" BONUS={calBonus(character.wisdom)} />
+                    <SkillList PROF="" MOD="CHA" SKILL="Intimidation" BONUS={calBonus(character.charisma)} />
+                    <SkillList PROF="" MOD="INT" SKILL="Investigation" BONUS={calBonus(character.intelligence)} />
+                    <SkillList PROF="" MOD="WIS" SKILL="Medicine" BONUS={calBonus(character.wisdom)} />
+                    <SkillList PROF="" MOD="INT" SKILL="Nature" BONUS={calBonus(character.intelligence)} />
+                    <SkillList PROF="" MOD="WIS" SKILL="Perception" BONUS={calBonus(character.wisdom)} />
+                    <SkillList PROF="" MOD="CHA" SKILL="Performance" BONUS={calBonus(character.charisma)} />
+                    <SkillList PROF="" MOD="CHA" SKILL="Persuasion" BONUS={calBonus(character.charisma)} />
+                    <SkillList PROF="" MOD="INT" SKILL="Religion" BONUS={calBonus(character.intelligence)} />
+                    <SkillList PROF="" MOD="DEX" SKILL="Sleight of Hand" BONUS={calBonus(character.dexterity)} />
+                    <SkillList PROF="" MOD="DEX" SKILL="Stealth" BONUS={calBonus(character.dexterity)} />
+                    <SkillList PROF="" MOD="WIS" SKILL="Survival" BONUS={calBonus(character.wisdom)} />
                     <div className="box_title">SKILLS</div>
                   </div>
                 </div>
