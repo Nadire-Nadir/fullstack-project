@@ -5,9 +5,9 @@ import Header from "../components/header";
 
 
 const CreateCharacter = () => (
-    <div className="page">
+    <div className="page"  id="add_character_page">
         <div className="page_content">
-            <Header directto="" btnlabel="Back to my characters" pagetitle="Create character" />
+            <Header directto="" btnlabel="Back to my characters" pagetitle="Character Builder" />
             <AddCharacter />
         </div>
     </div>

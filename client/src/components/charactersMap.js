@@ -65,7 +65,7 @@ class CharactersMap extends React.Component {
                         <p>{item.race}</p>
                       </li>
                       <li className="character_info">
-                        <p>{item.class}</p>
+                        <p>{item.class.name}</p>
                       </li>
 
                       <li className="character_info">

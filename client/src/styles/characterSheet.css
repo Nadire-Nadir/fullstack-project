@@ -194,7 +194,7 @@
     height: 130%;
     float: right;
     position: relative;
-    margin-top: -90px;
+    margin-top: -85px;
     text-align: center;
 }
 
@@ -203,7 +203,7 @@
 }
 
 #pro_bonus{
-    margin-top: 25px;
+    margin-top: 10px;
     font-size: 3.5em;
 
 }
@@ -214,6 +214,48 @@
     padding-left: 40px;
     padding-top: 5px;
 }
+
+#inspiration {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+#inspiration input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#checkmark {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: 100%;
+    width: 100%; 
+}
+
+#inspiration input:checked ~ #checkmark {
+    background-image: url("/inspiration_icon.png");
+    background-repeat: no-repeat;  
+    background-position: center;
+}
+
+#inspiration input:checked ~ #checkmark:after {
+    display: block;
+}
+
+#checkmark:after {
+    position: absolute;
+    display: none;
+}
+
+#checkmark:after {
+    width: 25px;
+    height: 25px;
+   
+  }
 
 #saving_throws_container {
     flex: 1.4;
@@ -250,14 +292,8 @@
 }
 
 .saving_throws_ability_prof img{
-    background-image: url("/saving_icon_white.png");
-    background-repeat: no-repeat;  
-    background-position: center;
-    background-size: cover; 
     width: 25px;
     height: 25px;
-    border-radius: 50%;
-    justify-content: center;
 }
 
 .saving_throws_ability_name{
