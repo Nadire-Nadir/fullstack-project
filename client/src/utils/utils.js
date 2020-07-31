@@ -9,13 +9,21 @@ export const mapSpeed = (race) => {
 }
 
 export const calBonus = (skill) => {
-    let strBonus = Math.floor((skill)/2)-5;
-      if(strBonus>0) {
-        strBonus = `+${strBonus}`;
+    if (skill < 8) {
+        return ""
     } else {
-        strBonus = strBonus;
+    let bonus = Math.floor((skill)/2)-5;
+      if(bonus>0) {
+        bonus = `+${bonus}`;
+    } else {
+        return bonus;
     }
-    return strBonus;
+    return bonus;}
+}
+
+export const calProSaving = (skill) => {
+    let bonus = Math.floor((skill)/2)-5;
+    return bonus;
 }
 
 export const calProficiency = (level) => {

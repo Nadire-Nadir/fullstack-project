@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import { mapSpeed } from "../utils/utils";
+import { mapSpeed, calProSaving } from "../utils/utils";
 import { calBonus } from "../utils/utils";
 import { calProficiency } from "../utils/utils";
 import { SAVING_THROWS } from "../config";
@@ -10,7 +10,6 @@ import SkillList from "../components/skillList";
 import SavingThrows from "./savingThrows";
 import Ability from "./ability";
 import "../styles/characterSheet.css";
-
 
 class CharacterSheetData extends React.Component {
   constructor(props) {
@@ -43,9 +42,7 @@ class CharacterSheetData extends React.Component {
 
   render() {
     const { character, loading } = this.state;
-    const checkedSaving = SAVING_THROWS[character.class];
-    
-
+ 
     if (loading) {
       return (
         <div id="character_sheet">
@@ -53,106 +50,274 @@ class CharacterSheetData extends React.Component {
         </div>
       );
     }
+    
+    const checkedSaving = SAVING_THROWS[character.class.name];
 
-     
     return (
       <div id="charactersheet_detail">
         <div id="frofile_block">
           <div id="basic_info_block_content">
             <div id="cha_pic_block"></div>
-            <div id="basic_info_block"> 
-              <div id="basic_info_block_00">                         
-                <p>{character.name}</p>                
-                <p>{character.race} {character.class}</p>                
-                <p>LEVEL {character.level}</p>  
-              </div>  
+            <div id="basic_info_block">
+              <div id="basic_info_block_00">
+                <p>{character.name}</p>
+                <p>
+                  {character.race} {character.class.name}
+                </p>
+                <p>LEVEL {character.level}</p>
+              </div>
               <div id="basic_info_block_01">
-                <div className="basic_info_block_btn"><button className="action_btns">EDIT</button></div>   
-                <div className="basic_info_block_btn"><button className="action_btns">SHARE</button></div> 
-                <div className="basic_info_block_btn"><button className="action_btns">REST</button></div> 
+                <div className="basic_info_block_btn">
+                  <button className="action_btns">EDIT</button>
+                </div>
+                <div className="basic_info_block_btn">
+                  <button className="action_btns">SHARE</button>
+                </div>
+                <div className="basic_info_block_btn">
+                  <button className="action_btns">REST</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        
+
         <div id="cha_core_info">
           <div className="block" id="block_01">
             <div id="block_01_up">
-            <div id="core_skill_block">                            
-                <Ability BOX_TITLE="STRENGTH" SKILL_BONUS={calBonus(character.strength)} SKILL_VALUE={character.strength}/>
-                <Ability BOX_TITLE="DEXTERITY" SKILL_BONUS={calBonus(character.dexterity)} SKILL_VALUE={character.dexterity}/>
-                <Ability BOX_TITLE="CONSTITUTION" SKILL_BONUS={calBonus(character.constitution)} SKILL_VALUE={character.constitution}/>
-                <Ability BOX_TITLE="INTELLIGENCE" SKILL_BONUS={calBonus(character.intelligence)} SKILL_VALUE={character.intelligence}/>
-                <Ability BOX_TITLE="WISDOM" SKILL_BONUS={calBonus(character.wisdom)} SKILL_VALUE={character.wisdom}/>
-                <Ability BOX_TITLE="CHARISMA" SKILL_BONUS={calBonus(character.charisma)} SKILL_VALUE={character.charisma}/>
-            </div> 
-           
-            <div id="skill_2">
-              <div className="skill_2_col b_g" id="inspiration_container">
-                <div className="inspiration_container_title">
-                  <p>INSPIRATION</p>
-                </div>
-                <div className="value_box border b_g" id="inspiration"></div>
+              <div id="core_skill_block">
+                <Ability
+                  BOX_TITLE="STRENGTH"
+                  SKILL_BONUS={calBonus(character.strength)}
+                  SKILL_VALUE={character.strength}
+                />
+                <Ability
+                  BOX_TITLE="DEXTERITY"
+                  SKILL_BONUS={calBonus(character.dexterity)}
+                  SKILL_VALUE={character.dexterity}
+                />
+                <Ability
+                  BOX_TITLE="CONSTITUTION"
+                  SKILL_BONUS={calBonus(character.constitution)}
+                  SKILL_VALUE={character.constitution}
+                />
+                <Ability
+                  BOX_TITLE="INTELLIGENCE"
+                  SKILL_BONUS={calBonus(character.intelligence)}
+                  SKILL_VALUE={character.intelligence}
+                />
+                <Ability
+                  BOX_TITLE="WISDOM"
+                  SKILL_BONUS={calBonus(character.wisdom)}
+                  SKILL_VALUE={character.wisdom}
+                />
+                <Ability
+                  BOX_TITLE="CHARISMA"
+                  SKILL_BONUS={calBonus(character.charisma)}
+                  SKILL_VALUE={character.charisma}
+                />
               </div>
-              <div className="skill_2_col b_g" id="pro_bonus_container">
-                <div className="inspiration_container_title">
-                  <p>PROFICIENCY BONUS</p>
+
+              <div id="skill_2">
+                <div className="skill_2_col b_g" id="inspiration_container">
+                  <div className="inspiration_container_title">
+                    <p>INSPIRATION</p>
+                  </div>
+                  <label className="value_box border b_g" id="inspiration">
+                    <input type="checkbox"/>
+                    <span id="checkmark"></span>
+                  </label>
                 </div>
-                <div className="value_box border b_g">
-                  <div id="pro_bonus">+ {calProficiency(character.level)}</div>
-                </div>
-              </div>
-              <div className="b_g" id="saving_throws_container">
-                <div className="content" id="saving_throws_content">
-                  <div className="saving_throws">
-                    <div className="saving_throws_row">
-                      <SavingThrows className="saving_throws_item_1" SAVING_NAME="STR" SAVING={calBonus(character.strength)} />
-                      <SavingThrows SAVING_NAME="INT" SAVING={calBonus(character.intelligence)} />        
-                    </div>
-                    <div className="saving_throws_row">
-                      <SavingThrows className="saving_throws_item_1" SAVING_NAME="DEX" SAVING={calBonus(character.dexterity)} />
-                      <SavingThrows SAVING_NAME="WIS" SAVING={calBonus(character.wisdom)} />
-                    </div>
-                    <div className="saving_throws_row">
-                      <SavingThrows className="saving_throws_item_1" SAVING_NAME="CON" SAVING={calBonus(character.constitution)} />
-                      <SavingThrows SAVING_NAME="CHA" SAVING={calBonus(character.charisma)} />
+                <div className="skill_2_col b_g" id="pro_bonus_container">
+                  <div className="inspiration_container_title">
+                    <p>PROFICIENCY BONUS</p>
+                  </div>
+                  <div className="value_box border b_g">
+                    <div id="pro_bonus">
+                      + {calProficiency(character.level)}
                     </div>
                   </div>
-                  <div className="box_title">SAVING THROWS</div>
                 </div>
-              </div>
-              <div className="b_g" id="skill_details_container">
-                <div className="content" id="skill_details_content">
-                  <div className="skill_ul">
-                    <div className="skill_list" id="skill_list_title">
-                      <div className="li_item">PROF</div>
-                      <div className="li_item">MOD</div>
-                      <div className="li_item_skill">SKILL</div>
-                      <div className="li_item">BONUS</div>
+                <div className="b_g" id="saving_throws_container">
+                  <div className="content" id="saving_throws_content">
+                    <div className="saving_throws">
+                      <div className="saving_throws_row">
+                        <SavingThrows
+                          className="saving_throws_item_1"
+                          saving_name="STR"
+                          saving={calBonus(character.strength)}
+                          isChecked={checkedSaving.includes("STR")}
+                          proficiency={calProficiency(character.level)}
+                          proSaving={calProSaving(character.strength)}
+                        
+                        />
+                        <SavingThrows
+                          saving_name="INT"
+                          saving={calBonus(character.intelligence)}
+                          isChecked={checkedSaving.includes("INT")}
+                          proficiency={calProficiency(character.level)}
+                          proSaving={calProSaving(character.intelligence)}
+                        />
+                      </div>
+                      <div className="saving_throws_row">
+                        <SavingThrows
+                          className="saving_throws_item_1"
+                          saving_name="DEX"
+                          saving={calBonus(character.dexterity)}
+                          isChecked={checkedSaving.includes("DEX")}
+                          proficiency={calProficiency(character.level)}
+                          proSaving={calProSaving(character.dexterity)}
+                        />
+                        <SavingThrows
+                          saving_name="WIS"
+                          saving={calBonus(character.wisdom)}
+                          isChecked={checkedSaving.includes("WIS")}
+                          proficiency={calProficiency(character.level)}
+                          proSaving={calProSaving(character.wisdom)}
+                        />
+                      </div>
+                      <div className="saving_throws_row">
+                        <SavingThrows
+                          className="saving_throws_item_1"
+                          saving_name="CON"
+                          saving={calBonus(character.constitution)}
+                          isChecked={checkedSaving.includes("CON")}
+                          proficiency={calProficiency(character.level)}
+                          proSaving={calProSaving(character.constitution)}
+                        />
+                        <SavingThrows
+                          saving_name="CHA"
+                          saving={calBonus(character.charisma)}
+                          isChecked={checkedSaving.includes("CHA")}
+                          proficiency={calProficiency(character.level)}
+                          proSaving={calProSaving(character.charisma)}
+                        />
+                      </div>
                     </div>
-                    <SkillList PROF="" MOD="DEX" SKILL="Acrobatics" BONUS={calBonus(character.dexterity)} />
-                    <SkillList PROF="" MOD="WIS" SKILL="Animal Handling" BONUS={calBonus(character.wisdom)} />
-                    <SkillList PROF="" MOD="INT" SKILL="Arcana" BONUS={calBonus(character.intelligence)} />
-                    <SkillList PROF="" MOD="STR" SKILL="Athletics" BONUS={calBonus(character.strength)} />
-                    <SkillList PROF="" MOD="CHA" SKILL="Deception" BONUS={calBonus(character.charisma)} />
-                    <SkillList PROF="" MOD="INT" SKILL="History" BONUS={calBonus(character.intelligence)} />
-                    <SkillList PROF="" MOD="WIS" SKILL="Insight" BONUS={calBonus(character.wisdom)} />
-                    <SkillList PROF="" MOD="CHA" SKILL="Intimidation" BONUS={calBonus(character.charisma)} />
-                    <SkillList PROF="" MOD="INT" SKILL="Investigation" BONUS={calBonus(character.intelligence)} />
-                    <SkillList PROF="" MOD="WIS" SKILL="Medicine" BONUS={calBonus(character.wisdom)} />
-                    <SkillList PROF="" MOD="INT" SKILL="Nature" BONUS={calBonus(character.intelligence)} />
-                    <SkillList PROF="" MOD="WIS" SKILL="Perception" BONUS={calBonus(character.wisdom)} />
-                    <SkillList PROF="" MOD="CHA" SKILL="Performance" BONUS={calBonus(character.charisma)} />
-                    <SkillList PROF="" MOD="CHA" SKILL="Persuasion" BONUS={calBonus(character.charisma)} />
-                    <SkillList PROF="" MOD="INT" SKILL="Religion" BONUS={calBonus(character.intelligence)} />
-                    <SkillList PROF="" MOD="DEX" SKILL="Sleight of Hand" BONUS={calBonus(character.dexterity)} />
-                    <SkillList PROF="" MOD="DEX" SKILL="Stealth" BONUS={calBonus(character.dexterity)} />
-                    <SkillList PROF="" MOD="WIS" SKILL="Survival" BONUS={calBonus(character.wisdom)} />
-                    <div className="box_title">SKILLS</div>
+                    <div className="box_title">SAVING THROWS</div>
+                  </div>
+                </div>
+                <div className="b_g" id="skill_details_container">
+                  <div className="content" id="skill_details_content">
+                    <div className="skill_ul">
+                      <div className="skill_list" id="skill_list_title">
+                        <div className="li_item">PROF</div>
+                        <div className="li_item">MOD</div>
+                        <div className="li_item_skill">SKILL</div>
+                        <div className="li_item">BONUS</div>
+                      </div>
+                      <SkillList
+                        PROF=""
+                        MOD="DEX"
+                        SKILL="Acrobatics"
+                        BONUS={calBonus(character.dexterity)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="WIS"
+                        SKILL="Animal Handling"
+                        BONUS={calBonus(character.wisdom)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="INT"
+                        SKILL="Arcana"
+                        BONUS={calBonus(character.intelligence)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="STR"
+                        SKILL="Athletics"
+                        BONUS={calBonus(character.strength)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="CHA"
+                        SKILL="Deception"
+                        BONUS={calBonus(character.charisma)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="INT"
+                        SKILL="History"
+                        BONUS={calBonus(character.intelligence)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="WIS"
+                        SKILL="Insight"
+                        BONUS={calBonus(character.wisdom)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="CHA"
+                        SKILL="Intimidation"
+                        BONUS={calBonus(character.charisma)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="INT"
+                        SKILL="Investigation"
+                        BONUS={calBonus(character.intelligence)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="WIS"
+                        SKILL="Medicine"
+                        BONUS={calBonus(character.wisdom)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="INT"
+                        SKILL="Nature"
+                        BONUS={calBonus(character.intelligence)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="WIS"
+                        SKILL="Perception"
+                        BONUS={calBonus(character.wisdom)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="CHA"
+                        SKILL="Performance"
+                        BONUS={calBonus(character.charisma)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="CHA"
+                        SKILL="Persuasion"
+                        BONUS={calBonus(character.charisma)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="INT"
+                        SKILL="Religion"
+                        BONUS={calBonus(character.intelligence)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="DEX"
+                        SKILL="Sleight of Hand"
+                        BONUS={calBonus(character.dexterity)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="DEX"
+                        SKILL="Stealth"
+                        BONUS={calBonus(character.dexterity)}
+                      />
+                      <SkillList
+                        PROF=""
+                        MOD="WIS"
+                        SKILL="Survival"
+                        BONUS={calBonus(character.wisdom)}
+                      />
+                      <div className="box_title">SKILLS</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </div>
             <div className="b_g" id="block_01_down">
               <div className="content">
@@ -169,7 +334,7 @@ class CharacterSheetData extends React.Component {
                   <div className="core_skill_box_title">CLASS</div>
                 </div>
                 <div className="quick_info0 b_g">
-                  <div className="core_skill_dice border b_g"></div>
+                  <div className="core_skill_dice border b_g">+0</div>
                   <div className="core_skill_box_title" id="initiative_title">
                     INITIATIVE
                   </div>
@@ -177,7 +342,7 @@ class CharacterSheetData extends React.Component {
                 <div className="quick_info0 b_g">
                   <div className="core_skill_box_title">WALKING</div>
                   <div className="core_skill_dice">
-                      {mapSpeed(character.race)}
+                    {mapSpeed(character.race)}
                     <span id="speed_unit">ft.</span>
                   </div>
                   <div className="core_skill_box_title">SPEED</div>

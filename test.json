@@ -1,0 +1,20 @@
+{
+  "classes": {
+    "fighter": {
+      "skills": [
+        {
+          "name": "Athletics",
+          "isChecked": false
+        }
+      ]
+    },
+    "Brad": {
+      "skills": [
+        {
+          "name": "History",
+          "isChecked": false
+        }
+      ]
+    }
+  }
+}

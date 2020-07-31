@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const MyCharacterSchema = new Schema ({
     name: String,
     race: String,
-    class: String,
+    class: {},
     level: Number,
     strength: Number,
     dexterity: Number,
