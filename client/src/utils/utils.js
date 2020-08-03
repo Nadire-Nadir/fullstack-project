@@ -11,6 +11,8 @@ export const mapSpeed = (race) => {
 export const calBonus = (skill) => {
     if (skill < 8) {
         return ""
+    } else if (skill==="--"){
+        return "--"
     } else {
     let bonus = Math.floor((skill)/2)-5;
       if(bonus>0) {
@@ -29,4 +31,9 @@ export const calProSaving = (skill) => {
 export const calProficiency = (level) => {
     let proficiency = 2 + Math.floor(((level)/4) - (1/4));
     return proficiency;
+}
+
+export const calAC = (skill) => {
+    let AC = 10 + Math.floor((skill)/2)-5;
+    return AC;
 }

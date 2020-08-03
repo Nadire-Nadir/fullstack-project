@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router";
-import { LEVEL_OPTIONS, SKILL_OPTIONS } from "../config";
+import { SKILL_OPTIONS, CLASS_PROFICIENCY, LEVEL_OPTIONS } from "../config";
 import { calBonus } from "../utils/utils";
+import ProficiencySelect from "../components/proficiencySelect";
 
 import "../styles/addCharacter.css";
 import "../styles/form.css";
@@ -15,23 +16,28 @@ class AddCharacter extends React.Component {
 
     this.take = this.take.bind(this);
     this.publish = this.publish.bind(this);
+    this.handleRaceClick = this.handleRaceClick.bind(this);
+    this.handleClassClick = this.handleClassClick.bind(this);
 
     this.state = {
       name: "",
       race: "",
       class: {
-        name: "",
-        skills: [],
+        name: "class",
+        skill01: "",
+        skill02: "",
+        skill03: "",
+        skill04: "",
       },
       level: "",
-      strength: "",
-      dexterity: "",
-      constitution: "",
-      intelligence: "",
-      wisdom: "",
-      charisma: "",
-      status: "",
-      message: "",
+      strength: "--",
+      dexterity: "--",
+      constitution: "--",
+      intelligence: "--",
+      wisdom: "--",
+      charisma: "--",
+      status: "--",
+      message: "--",
     };
   }
 
@@ -46,14 +52,33 @@ class AddCharacter extends React.Component {
         return this.setState({ class: { name: e.target.value } });
       case "skill01":
         return this.setState({
-          class: { skill01: e.target.value, name: this.state.class.name },
+          class: { name: this.state.class.name, skill01: e.target.value },
         });
       case "skill02":
         return this.setState({
           class: {
-            skill02: e.target.value,
             name: this.state.class.name,
             skill01: this.state.class.skill01,
+            skill02: e.target.value,
+          },
+        });
+      case "skill03":
+        return this.setState({
+          class: {
+            name: this.state.class.name,
+            skill01: this.state.class.skill01,
+            skill02: this.state.class.skill02,
+            skill03: e.target.value,
+          },
+        });
+      case "skill04":
+        return this.setState({
+          class: {
+            name: this.state.class.name,
+            skill01: this.state.class.skill01,
+            skill02: this.state.class.skill02,
+            skill03: this.state.class.skill03,
+            skill04: e.target.value,
           },
         });
       case "level":
@@ -76,9 +101,11 @@ class AddCharacter extends React.Component {
           name: "",
           race: "",
           class: {
-            name: "",
+            name: "class",
             skill01: "",
             skill02: "",
+            skill03: "",
+            skill04: "",
           },
 
           level: "",
@@ -106,7 +133,7 @@ class AddCharacter extends React.Component {
       wisdom: this.state.wisdom,
       charisma: this.state.charisma,
     };
-    console.log("this.state.race", this.state.race);
+
     axios
       .post("/create-character", newCharacter, {
         headers: { "Content-Type": "application/json" },
@@ -121,8 +148,17 @@ class AddCharacter extends React.Component {
       });
   };
 
+  handleRaceClick = (option) => {
+    this.setState({ race: option });
+    console.log("option", option);
+  };
+
+  handleClassClick = (option) => {
+    this.setState({ class: { name: option } });
+    console.log("option", option);
+  };
+
   render() {
-    console.log("this.state", this.state);
     return (
       <div id="add_character">
         <div className="slider_left"></div>
@@ -150,57 +186,51 @@ class AddCharacter extends React.Component {
           <div className="character_form_group">
             <div className="add_character_form">
               <div className="add_character_form_title">Choose a Race</div>
-              <div
-                value={this.state.race}
-                name="race"
-                onChange={this.take}
-                type="text"
-                className="add_character_form_option"
-              >
+              <div className="add_character_form_option">
                 <SelectOption
-                  value="human"
                   option_profile="/human.jpeg"
-                  option_name="HUMAN"
+                  option_name="Human"
+                  handleClick={this.handleRaceClick}
                 />
                 <SelectOption
-                  value="elf"
+                  handleClick={this.handleClick}
                   option_profile="/elf.jpeg"
-                  option_name="ELF"
+                  option_name="Elf"
                 />
                 <SelectOption
-                  value="dwarf"
+                  handleClick={this.handleRaceClick}
                   option_profile="/dwarf.jpeg"
-                  option_name="DWARF"
+                  option_name="Dwarf"
                 />
                 <SelectOption
-                  value="halfling"
+                  handleClick={this.handleRaceClick}
                   option_profile="/halfling.jpeg"
-                  option_name="HALFLING"
+                  option_name="Halfling"
                 />
                 <SelectOption
-                  value="half-orc"
+                  handleClick={this.handleRaceClick}
                   option_profile="/half-orc.jpeg"
-                  option_name="HALF-ORC"
+                  option_name="Half-Orc"
                 />
                 <SelectOption
-                  value="half-elf"
+                  handleClick={this.handleRaceClick}
                   option_profile="/half-elf.jpeg"
-                  option_name="HALF-ELF"
+                  option_name="Half-Elf"
                 />
                 <SelectOption
-                  value="gnome"
+                  handleClick={this.handleRaceClick}
                   option_profile="/gnome.jpeg"
-                  option_name="GNOME"
+                  option_name="Gnome"
                 />
                 <SelectOption
-                  value="dragonborn"
+                  handleClick={this.handleRaceClick}
                   option_profile="/dragonborn.jpeg"
-                  option_name="DRAGONBORN"
+                  option_name="Dragonborn"
                 />
                 <SelectOption
-                  value="tiefling"
+                  handleClick={this.handleRaceClick}
                   option_profile="/tiefling.jpeg"
-                  option_name="TIEFLING"
+                  option_name="Tiefling"
                 />
               </div>
             </div>
@@ -209,123 +239,122 @@ class AddCharacter extends React.Component {
           <div className="character_form_group">
             <div className="add_character_form">
               <div className="add_character_form_title">Choose a Class</div>
-              <div
-                onChange={this.take}
-                name="class"
-                value={this.state.class.name}
-                type="text"
-                className="add_character_form_option"
-              >
+              <div className="add_character_form_option">
                 <SelectOption
-                  value="Barbarian"
+                  handleClick={this.handleClassClick}
                   option_profile="/barbarian.jpeg"
-                  option_name="BARBARIAN"
+                  option_name="Barbarian"
                 />
                 <SelectOption
-                  value="Bard"
+                  handleClick={this.handleClassClick}
                   option_profile="/bard.jpeg"
-                  option_name="BARD"
+                  option_name="Bard"
                 />
                 <SelectOption
-                  value="Cleric"
+                  handleClick={this.handleClassClick}
                   option_profile="/cleric.jpeg"
-                  option_name="CLERIC"
+                  option_name="Cleric"
                 />
                 <SelectOption
-                  value="Druid"
+                  handleClick={this.handleClassClick}
                   option_profile="/druid.jpeg"
-                  option_name="DRUID"
+                  option_name="Druid"
                 />
                 <SelectOption
-                  value="Fighter"
+                  handleClick={this.handleClassClick}
                   option_profile="/fighter.jpeg"
-                  option_name="FIGHTER"
+                  option_name="Fighter"
                 />
                 <SelectOption
                   value="Monk"
                   option_profile="/monk.jpeg"
-                  option_name="MONK"
+                  option_name="Monk"
                 />
                 <SelectOption
-                  value="Paladin"
+                  handleClick={this.handleClassClick}
                   option_profile="/paladin.jpeg"
-                  option_name="PALADIN"
+                  option_name="Paladin"
                 />
                 <SelectOption
-                  value="Sorcerer"
+                  handleClick={this.handleClassClick}
                   option_profile="/sorcerer.jpeg"
-                  option_name="SORCERER"
+                  option_name="Sorcerer"
                 />
                 <SelectOption
-                  value="Rogue"
+                  handleClick={this.handleClassClick}
                   option_profile="/rogue.jpeg"
-                  option_name="ROGUE"
+                  option_name="Rogue"
                 />
                 <SelectOption
-                  value="Ranger"
+                  handleClick={this.handleClassClick}
                   option_profile="/ranger.jpeg"
-                  option_name="RANGER"
+                  option_name="Ranger"
                 />
                 <SelectOption
-                  value="Warlock"
+                  handleClick={this.handleClassClick}
                   option_profile="/warlock.jpeg"
-                  option_name="WARLOCK"
+                  option_name="Warlock"
                 />
                 <SelectOption
-                  value="Wizard"
+                  handleClick={this.handleClassClick}
                   option_profile="/wizard.jpeg"
-                  option_name="WIZARD"
+                  option_name="Wizard"
                 />
               </div>
             </div>
           </div>
-          <br />
 
           <div className="character_form_group">
-            <div id="chosen_class_container">
-              <div className="add_character_form_title">Chosen Class</div>
-              <SelectOption value="" option_profile="/ranger.jpeg" option_name="whatever have chosen" />
-            
-              <label className="add_character_form" id="add_character_level">             
-              Choose Starting Level:
-              <select
-                onChange={this.take}
-                name="level"
-                value={this.state.level}
-                type="number"
-                className="character_input skill_input"
-                placeholder=""
-              >
-                {LEVEL_OPTIONS.map((item) => {
-                  return <option key={item}>{item}</option>;
-                })}
-              </select>
-              </label>
+            <div id="proficiency_container">
+              <div id="chosen_class_container">
+                <div id="chosen_class_div">
+                  <div className="add_character_form_title">Chosen Class</div>
+                  <div className="character_input">
+                    <div className="option_img">
+                      <img src="/barbarian.jpeg" alt="" />
+                    </div>
+                    <div className="character_input_select">
+                      {this.state.class.name}
+                    </div>
+                  </div>
+                </div>
+                <div id="add_character_level">
+                  <label>
+                    Choose Starting Level:
+                    <select
+                      onChange={this.take}
+                      name="level"
+                      value={this.state.level}
+                      type="number"
+                      className="character_input skill_input"
+                      placeholder=""
+                    >
+                      {LEVEL_OPTIONS.map((item) => {
+                        return <option key={item}>{item}</option>;
+                      })}
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div className="proficiency_container">
+                <p>Proficiencies</p>
+                {CLASS_PROFICIENCY[`${this.state.class.name}`].skill_num.map(
+                  (item) => {
+                    return (
+                      <div key={item}>
+                        {
+                          <ProficiencySelect
+                            name={item}
+                            onChange={this.take}
+                            class_name={this.state.class.name}                       
+                          />
+                        }
+                      </div>
+                    );
+                  }
+                )}
+              </div>
             </div>
-            <label className="add_character_form">
-              Proficiencies
-              <select
-                onChange={this.take}
-                name="skill01"
-                value={this.state.class.skill01}
-                type="text"
-                className="character_input skill_input"
-                placeholder=""
-              >    
-                <option defaultValue="skill02">choose a Skill</option>        
-              </select>
-              <select
-                onChange={this.take}
-                name="skill01"
-                value={this.state.class.skill01}
-                type="text"
-                className="character_input skill_input"
-                placeholder=""
-              >
-                <option defaultValue="skill02">choose a Skill</option>
-               
-              </select>
-            </label>
           </div>
           <div className="character_form_group">
             <div className="add_character_form_title">Ability Scores</div>
@@ -360,6 +389,7 @@ class AddCharacter extends React.Component {
                   })}
                 </select>
               </label>
+
               <label className="add_ability_form_option">
                 CONSTITUTION
                 <select
@@ -422,20 +452,52 @@ class AddCharacter extends React.Component {
               </label>
             </div>
             <div id="score_cal">
-              <div className="add_character_form_title">Scores Calculations</div>
-              <div className="score_cal_container">
-              <ScoreCalc score_header="STRENGTH" total_score={this.state.strength} modifier={calBonus(this.state.strength)} base_score={this.state.strength} />
-              <ScoreCalc score_header="DEXTERITY" total_score={this.state.dexterity} modifier={calBonus(this.state.dexterity)} base_score={this.state.dexterity} />
-              <ScoreCalc score_header="CONSTITUTION" total_score={this.state.constitution} modifier={calBonus(this.state.constitution)} base_score={this.state.constitution} />
+              <div className="add_character_form_title">
+                Scores Calculations
               </div>
               <div className="score_cal_container">
-              <ScoreCalc score_header="INTELLIGENCE" total_score={this.state.intelligence} modifier={calBonus(this.state.intelligence)} base_score={this.state.intelligence} />
-              <ScoreCalc score_header="WISDOM" total_score={this.state.wisdom} modifier={calBonus(this.state.wisdom)} base_score={this.state.wisdom} />
-              <ScoreCalc score_header="CHARISMA" total_score={this.state.charisma} modifier={calBonus(this.state.charisma)} base_score={this.state.charisma} />
+                <ScoreCalc
+                  score_header="STRENGTH"
+                  total_score={this.state.strength}
+                  modifier={calBonus(this.state.strength)}
+                  base_score={this.state.strength}
+                />
+                <ScoreCalc
+                  score_header="DEXTERITY"
+                  total_score={this.state.dexterity}
+                  modifier={calBonus(this.state.dexterity)}
+                  base_score={this.state.dexterity}
+                />
+                <ScoreCalc
+                  score_header="CONSTITUTION"
+                  total_score={this.state.constitution}
+                  modifier={calBonus(this.state.constitution)}
+                  base_score={this.state.constitution}
+                />
+              </div>
+              <div className="score_cal_container">
+                <ScoreCalc
+                  score_header="INTELLIGENCE"
+                  total_score={this.state.intelligence}
+                  modifier={calBonus(this.state.intelligence)}
+                  base_score={this.state.intelligence}
+                />
+                <ScoreCalc
+                  score_header="WISDOM"
+                  total_score={this.state.wisdom}
+                  modifier={calBonus(this.state.wisdom)}
+                  base_score={this.state.wisdom}
+                />
+                <ScoreCalc
+                  score_header="CHARISMA"
+                  total_score={this.state.charisma}
+                  modifier={calBonus(this.state.charisma)}
+                  base_score={this.state.charisma}
+                />
               </div>
             </div>
           </div>
-          <br/>
+          <br />
           <div id="create_character_btn_div">
             <button
               id="create_character_btn"

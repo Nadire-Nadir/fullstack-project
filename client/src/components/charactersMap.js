@@ -35,6 +35,8 @@ class CharactersMap extends React.Component {
       });
       console.log("Deleted!");
     });
+    let newCharacters = this.state.characters.filter(character => character.id !== id)
+    this.setState({characters: newCharacters})
   };
 
 
@@ -50,7 +52,7 @@ class CharactersMap extends React.Component {
 
     return (
       <div id="character_card_block">
-        {characters.map((item) => {
+        {characters.map((item) => {         
           return (           
               <div className="character_card" key={item._id}>
                 <div className="character_card_content">

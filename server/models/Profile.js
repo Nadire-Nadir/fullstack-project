@@ -6,7 +6,7 @@ const ProfileSchema = new Schema ({
     myCharacters: [{
         name: String,
         race: String,
-        class: String,
+        class: {},
         level: Number,
         strenth: Number,
         dexterity: Number,

@@ -1,12 +1,32 @@
 import React from "react";
+import "../styles/selectOption.css";
 
-export const SelectOption = (props) => (
-    <div className="character_input" >
+class SelectOption extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+
+  handleClick = () => {
+    this.props.handleClick(this.myRef.current.textContent);
+    console.log("clicked", this.myRef);
+  };
+
+  render() {
+    return (
+      <div className="character_input">
         <div className="option_img">
-            <img src={props.option_profile} alt="" />
+          <img src={this.props.option_profile} alt="" />
         </div>
-        <div value={props.value} className="character_input_select">{props.option_name}</div>    
-    </div>
-)
-
+        <div
+          ref={this.myRef}
+          onClick={this.handleClick}
+          className="character_input_select"
+        >
+          {this.props.option_name}
+        </div>
+      </div>
+    );
+  }
+}
 export default SelectOption;

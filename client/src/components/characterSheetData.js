@@ -4,7 +4,8 @@ import { withRouter } from "react-router-dom";
 import { mapSpeed, calProSaving } from "../utils/utils";
 import { calBonus } from "../utils/utils";
 import { calProficiency } from "../utils/utils";
-import { SAVING_THROWS } from "../config";
+import { calAC } from "../utils/utils";
+import { SAVING_THROWS, CLASS_PROFICIENCY} from "../config";
 import Spinner from "../components/spinner";
 import SkillList from "../components/skillList";
 import SavingThrows from "./savingThrows";
@@ -42,7 +43,6 @@ class CharacterSheetData extends React.Component {
 
   render() {
     const { character, loading } = this.state;
- 
     if (loading) {
       return (
         <div id="character_sheet">
@@ -50,9 +50,10 @@ class CharacterSheetData extends React.Component {
         </div>
       );
     }
-    
-    const checkedSaving = SAVING_THROWS[character.class.name];
 
+    const checkedSaving = SAVING_THROWS[character.class.name];
+    const pickedSkills = [character.class.skill01, character.class.skill02, character.class.skill03, character.class.skill04];
+    
     return (
       <div id="charactersheet_detail">
         <div id="frofile_block">
@@ -123,7 +124,7 @@ class CharacterSheetData extends React.Component {
                     <p>INSPIRATION</p>
                   </div>
                   <label className="value_box border b_g" id="inspiration">
-                    <input type="checkbox"/>
+                    <input type="checkbox" />
                     <span id="checkmark"></span>
                   </label>
                 </div>
@@ -148,7 +149,6 @@ class CharacterSheetData extends React.Component {
                           isChecked={checkedSaving.includes("STR")}
                           proficiency={calProficiency(character.level)}
                           proSaving={calProSaving(character.strength)}
-                        
                         />
                         <SavingThrows
                           saving_name="INT"
@@ -210,108 +210,126 @@ class CharacterSheetData extends React.Component {
                         MOD="DEX"
                         SKILL="Acrobatics"
                         BONUS={calBonus(character.dexterity)}
-                      />
+                        isChecked={pickedSkills.includes("Acrobatics")}
+                         />
                       <SkillList
                         PROF=""
                         MOD="WIS"
                         SKILL="Animal Handling"
                         BONUS={calBonus(character.wisdom)}
+                        isChecked={pickedSkills.includes("Animal Handling")}
                       />
                       <SkillList
                         PROF=""
                         MOD="INT"
                         SKILL="Arcana"
                         BONUS={calBonus(character.intelligence)}
+                        isChecked={pickedSkills.includes("Arcana")}
                       />
                       <SkillList
                         PROF=""
                         MOD="STR"
                         SKILL="Athletics"
                         BONUS={calBonus(character.strength)}
+                        isChecked={pickedSkills.includes("Athletics")}
                       />
                       <SkillList
                         PROF=""
                         MOD="CHA"
                         SKILL="Deception"
                         BONUS={calBonus(character.charisma)}
+                        isChecked={pickedSkills.includes("Deception")}
                       />
                       <SkillList
                         PROF=""
                         MOD="INT"
                         SKILL="History"
                         BONUS={calBonus(character.intelligence)}
+                        isChecked={pickedSkills.includes("History")}
                       />
                       <SkillList
                         PROF=""
                         MOD="WIS"
                         SKILL="Insight"
                         BONUS={calBonus(character.wisdom)}
+                        isChecked={pickedSkills.includes("Insight")}
                       />
                       <SkillList
                         PROF=""
                         MOD="CHA"
                         SKILL="Intimidation"
                         BONUS={calBonus(character.charisma)}
+                        isChecked={pickedSkills.includes("Intimidation")}
                       />
                       <SkillList
                         PROF=""
                         MOD="INT"
                         SKILL="Investigation"
                         BONUS={calBonus(character.intelligence)}
+                        isChecked={pickedSkills.includes("Investigation")}
                       />
                       <SkillList
                         PROF=""
                         MOD="WIS"
                         SKILL="Medicine"
                         BONUS={calBonus(character.wisdom)}
+                        isChecked={pickedSkills.includes("Medicine")}
                       />
                       <SkillList
                         PROF=""
                         MOD="INT"
                         SKILL="Nature"
                         BONUS={calBonus(character.intelligence)}
+                        isChecked={pickedSkills.includes("Nature")}
                       />
                       <SkillList
                         PROF=""
                         MOD="WIS"
                         SKILL="Perception"
                         BONUS={calBonus(character.wisdom)}
+                        isChecked={pickedSkills.includes("Perception")}
                       />
                       <SkillList
                         PROF=""
                         MOD="CHA"
                         SKILL="Performance"
                         BONUS={calBonus(character.charisma)}
+                        isChecked={pickedSkills.includes("Performance")}
                       />
                       <SkillList
                         PROF=""
                         MOD="CHA"
                         SKILL="Persuasion"
                         BONUS={calBonus(character.charisma)}
+                        isChecked={pickedSkills.includes("Persuasion")}
                       />
                       <SkillList
                         PROF=""
                         MOD="INT"
                         SKILL="Religion"
                         BONUS={calBonus(character.intelligence)}
+                        isChecked={pickedSkills.includes("Religion")}
                       />
                       <SkillList
                         PROF=""
                         MOD="DEX"
                         SKILL="Sleight of Hand"
                         BONUS={calBonus(character.dexterity)}
+                        isChecked={pickedSkills.includes("Sleight of Hand")}
                       />
                       <SkillList
                         PROF=""
                         MOD="DEX"
                         SKILL="Stealth"
                         BONUS={calBonus(character.dexterity)}
+                        isChecked={pickedSkills.includes("Stealth")}
                       />
                       <SkillList
                         PROF=""
                         MOD="WIS"
                         SKILL="Survival"
                         BONUS={calBonus(character.wisdom)}
+                        isChecked={pickedSkills.includes("Survival")}
                       />
                       <div className="box_title">SKILLS</div>
                     </div>
@@ -321,7 +339,23 @@ class CharacterSheetData extends React.Component {
             </div>
             <div className="b_g" id="block_01_down">
               <div className="content">
-                <div className="box_title">OTHER PROFICIENCIES & LANGUAGE</div>
+                <div id="pro_lan_block">
+                  <div className="pro_lan_row">
+                    <div className="skills_heading">ARMOR</div>
+                    <div className="pro_lan_detail">
+                   
+                    </div>
+                  </div>
+                  <div className="pro_lan_row">
+                    <div className="skills_heading">WEAPONS</div>
+                    <div className="pro_lan_detail"></div>
+                  </div>
+                  <div className="pro_lan_row">
+                    <div className="skills_heading">LANGUAGES</div>
+                    <div className="pro_lan_detail"></div>
+                  </div>
+                </div>
+                <div className="box_title">PROFICIENCIES & LANGUAGE</div>
               </div>
             </div>
           </div>
@@ -330,7 +364,9 @@ class CharacterSheetData extends React.Component {
               <div className="hit_block0" id="quick_info">
                 <div className="quick_info0 b_g">
                   <div className="core_skill_box_title ">ARMOR</div>
-                  <div className="core_skill_dice">18</div>
+                  <div className="core_skill_dice">
+                    {calAC(character.dexterity)}
+                  </div>
                   <div className="core_skill_box_title">CLASS</div>
                 </div>
                 <div className="quick_info0 b_g">

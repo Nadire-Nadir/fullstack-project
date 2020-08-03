@@ -318,6 +318,25 @@
     margin-bottom: 0;
 }
 
+#pro_lan_block{
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    margin: 16px;
+}
+
+.pro_lan_row{
+    flex:1;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(199, 223, 238); 
+}
+
+.pro_lan_detail{
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
 
 #block_02 {
     flex: 3;
