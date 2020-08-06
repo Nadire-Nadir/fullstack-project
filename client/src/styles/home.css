@@ -7,34 +7,36 @@
 
 .character_card{
     min-width: calc((100%) / 3);
-    height: 700px; 
+    height: 460px; 
+    margin-top: 50px;
 }
 
 .character_card_content{
     width: 95%;
-    height: 600px;
-    margin: 50px 10px 50px 10px;  
+    height: 455px;
+    margin: 10px 10px 0 10px; 
 }
 
 .myCharacters{
-    background-color: white; 
-    border: 1px solid rgb(116, 159, 187);
-    height: 480px;
-    font-size: 2em;  
+    background-color: rgb(31, 29, 29);
+    height: 320px;
+    font-size: 2em; 
+    color: white;
 }
 
 .character_profile{
-    margin: 50px 50px 0 50px;
     display: flex;  
+    padding-top: 30px;
+    margin-left: 30px;
 }
 
 .chracter_profile_pic{
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
     background-image: url("/character_profile1.jpeg");
     background-repeat: no-repeat;  
     background-position: center;
-    border-radius: 80px;   
+    border-radius: 70px;   
     margin-right: 40px;  
 }
 
@@ -57,8 +59,8 @@
 }
 
 .character_action_block{
-    background-color: rgb(31, 29, 29);
-    height: 85px;
+    border: 1px solid rgb(116, 159, 187);
+    height: 70px;
     padding-top: 35px;
     display: flex;
     flex-direction: row;
@@ -73,7 +75,8 @@
     font-size: 1.5em;
     color: rgb(27, 154, 240);
     font-weight: bold;
-    background-color: rgb(31, 29, 29);
+    background-color: white;
+
 }
 
 #delete_character_btn{

@@ -11,14 +11,31 @@
     margin-top: 60px;    
 }
 
-.slider_left{
-    background-color: thistle;
-    flex: 1;
+.slider_container{
+    flex: 1;   
 }
 
-.slider_right{
-    background-color: thistle;
-    flex: 1;
+#slider img{
+    margin: 100px 100px 0 0;
+}
+
+#slider_right{
+    float: left;
+    margin: 100px 0 0 100px;
+}
+
+#slider_left{
+    float: right;  
+    margin: 100px 100px 0 0; 
+}
+
+.slider:hover {
+    cursor: pointer;
+}
+
+.slider img{
+    width: 64px;
+    height: 64px;
 }
 
 #add_character_content{

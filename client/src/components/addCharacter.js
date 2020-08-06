@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router";
-import { SKILL_OPTIONS, CLASS_PROFICIENCY, LEVEL_OPTIONS } from "../config";
+import { CLASS_PROFICIENCY, LEVEL_OPTIONS } from "../config";
 import { calBonus } from "../utils/utils";
 import ProficiencySelect from "../components/proficiencySelect";
 
@@ -9,6 +9,7 @@ import "../styles/addCharacter.css";
 import "../styles/form.css";
 import SelectOption from "./selectOption";
 import ScoreCalc from "./scoreCalc";
+import AbilitySelect from "./abilitySelect";
 
 class AddCharacter extends React.Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class AddCharacter extends React.Component {
       charisma: "--",
       status: "--",
       message: "--",
+      abilityOptions: ["--","8","10","12","13","14","15"]
     };
   }
 
@@ -84,9 +86,13 @@ class AddCharacter extends React.Component {
       case "level":
         return this.setState({ level: e.target.value });
       case "strength":
-        return this.setState({ strength: e.target.value });
+        return this.setState({ 
+          strength: e.target.value,
+          // abilityOptions: this.state.abilityOptions.filter(ability => ability !== e.target.value)
+          });         
       case "dexterity":
-        return this.setState({ dexterity: e.target.value });
+        return this.setState({ dexterity: e.target.value ,
+        });
       case "constitution":
         return this.setState({ constitution: e.target.value });
       case "intelligence":
@@ -161,7 +167,11 @@ class AddCharacter extends React.Component {
   render() {
     return (
       <div id="add_character">
-        <div className="slider_left"></div>
+        <div className="slider_container">
+        <div className="slider" id="slider_left">
+          <img src="/arrow_left_blue.png" />
+        </div>
+        </div>
         <div id="add_character_content">
           <div className="character_form_group">
             <div id="create_cha_name">
@@ -188,13 +198,13 @@ class AddCharacter extends React.Component {
               <div className="add_character_form_title">Choose a Race</div>
               <div className="add_character_form_option">
                 <SelectOption
-                  option_profile="/human.jpeg"
+                  option_profile="/human.jpg"
                   option_name="Human"
                   handleClick={this.handleRaceClick}
                 />
                 <SelectOption
                   handleClick={this.handleClick}
-                  option_profile="/elf.jpeg"
+                  option_profile="/elf.jpg"
                   option_name="Elf"
                 />
                 <SelectOption
@@ -204,7 +214,7 @@ class AddCharacter extends React.Component {
                 />
                 <SelectOption
                   handleClick={this.handleRaceClick}
-                  option_profile="/halfling.jpeg"
+                  option_profile="/halfling.jpg"
                   option_name="Halfling"
                 />
                 <SelectOption
@@ -214,22 +224,22 @@ class AddCharacter extends React.Component {
                 />
                 <SelectOption
                   handleClick={this.handleRaceClick}
-                  option_profile="/half-elf.jpeg"
+                  option_profile="/half-elf.jpg"
                   option_name="Half-Elf"
                 />
                 <SelectOption
                   handleClick={this.handleRaceClick}
-                  option_profile="/gnome.jpeg"
+                  option_profile="/gnome.jpg"
                   option_name="Gnome"
                 />
                 <SelectOption
                   handleClick={this.handleRaceClick}
-                  option_profile="/dragonborn.jpeg"
+                  option_profile="/dragonborn.jpg"
                   option_name="Dragonborn"
                 />
                 <SelectOption
                   handleClick={this.handleRaceClick}
-                  option_profile="/tiefling.jpeg"
+                  option_profile="/tiefling.jpg"
                   option_name="Tiefling"
                 />
               </div>
@@ -242,62 +252,62 @@ class AddCharacter extends React.Component {
               <div className="add_character_form_option">
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/barbarian.jpeg"
+                  option_profile="/barbarian.png"
                   option_name="Barbarian"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/bard.jpeg"
+                  option_profile="/bard.png"
                   option_name="Bard"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/cleric.jpeg"
+                  option_profile="/cleric.png"
                   option_name="Cleric"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/druid.jpeg"
+                  option_profile="/druid.png"
                   option_name="Druid"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/fighter.jpeg"
+                  option_profile="/fighter.png"
                   option_name="Fighter"
                 />
                 <SelectOption
                   value="Monk"
-                  option_profile="/monk.jpeg"
+                  option_profile="/monk.jpg"
                   option_name="Monk"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/paladin.jpeg"
+                  option_profile="/paladin.png"
                   option_name="Paladin"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/sorcerer.jpeg"
+                  option_profile="/sorcerer.png"
                   option_name="Sorcerer"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/rogue.jpeg"
+                  option_profile="/rogue.png"
                   option_name="Rogue"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/ranger.jpeg"
+                  option_profile="/ranger.png"
                   option_name="Ranger"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/warlock.jpeg"
+                  option_profile="/warlock.png"
                   option_name="Warlock"
                 />
                 <SelectOption
                   handleClick={this.handleClassClick}
-                  option_profile="/wizard.jpeg"
+                  option_profile="/wizard.png"
                   option_name="Wizard"
                 />
               </div>
@@ -311,7 +321,7 @@ class AddCharacter extends React.Component {
                   <div className="add_character_form_title">Chosen Class</div>
                   <div className="character_input">
                     <div className="option_img">
-                      <img src="/barbarian.jpeg" alt="" />
+                      <img src="/barbarian.png" alt="" />
                     </div>
                     <div className="character_input_select">
                       {this.state.class.name}
@@ -359,97 +369,73 @@ class AddCharacter extends React.Component {
           <div className="character_form_group">
             <div className="add_character_form_title">Ability Scores</div>
             <div className="add_ability_form">
-              <label className="add_ability_form_option">
-                STRENGTH
-                <select
-                  onChange={this.take}
-                  name="strength"
-                  value={this.state.strength}
-                  type="number"
-                  className="character_input skill_input"
-                  placeholder=""
-                >
-                  {SKILL_OPTIONS.map((item) => {
+              <AbilitySelect 
+                abilitySelectTitle="STRENGTH"
+                name="strength"
+                onChange={this.take}
+                value={this.state.strength}
+                abilitySelectList=
+                  {this.state.abilityOptions.map((item) => {
                     return <option key={item}>{item}</option>;
                   })}
-                </select>
-              </label>
-              <label className="add_ability_form_option">
-                DEXTERITY
-                <select
-                  onChange={this.take}
-                  name="dexterity"
-                  value={this.state.dexterity}
-                  type="number"
-                  className="character_input skill_input"
-                  placeholder=""
-                >
-                  {SKILL_OPTIONS.map((item) => {
+              
+              />
+             <AbilitySelect 
+                abilitySelectTitle="DEXTERITY"
+                name="dexterity"
+                onChange={this.take}
+                value={this.state.dexterity}
+                abilitySelectList=
+                  {this.state.abilityOptions.map((item) => {
                     return <option key={item}>{item}</option>;
                   })}
-                </select>
-              </label>
+              
+              />
 
-              <label className="add_ability_form_option">
-                CONSTITUTION
-                <select
-                  onChange={this.take}
-                  name="constitution"
-                  value={this.state.constitution}
-                  type="number"
-                  className="character_input skill_input"
-                  placeholder=""
-                >
-                  {SKILL_OPTIONS.map((item) => {
+              <AbilitySelect 
+                abilitySelectTitle="CONSTITUTION"
+                name="constitution"
+                onChange={this.take}
+                value={this.state.constitution}
+                abilitySelectList=
+                  {this.state.abilityOptions.map((item) => {
                     return <option key={item}>{item}</option>;
                   })}
-                </select>
-              </label>
-              <label className="add_ability_form_option">
-                INTELLIGENCE
-                <select
-                  onChange={this.take}
-                  name="intelligence"
-                  value={this.state.intelligence}
-                  type="number"
-                  className="character_input skill_input"
-                  placeholder=""
-                >
-                  {SKILL_OPTIONS.map((item) => {
+              
+              />
+              <AbilitySelect 
+                abilitySelectTitle="INTELLIGENCE"
+                name="intelligence"
+                onChange={this.take}
+                value={this.state.intelligence}
+                abilitySelectList=
+                  {this.state.abilityOptions.map((item) => {
                     return <option key={item}>{item}</option>;
                   })}
-                </select>
-              </label>
-              <label className="add_ability_form_option">
-                WISDOM
-                <select
-                  onChange={this.take}
-                  name="wisdom"
-                  value={this.state.wisdom}
-                  type="number"
-                  className="character_input skill_input"
-                  placeholder=""
-                >
-                  {SKILL_OPTIONS.map((item) => {
+              
+              />
+              <AbilitySelect 
+                abilitySelectTitle="WISDOM"
+                name="wisdom"
+                onChange={this.take}
+                value={this.state.wisdom}
+                abilitySelectList=
+                  {this.state.abilityOptions.map((item) => {
                     return <option key={item}>{item}</option>;
                   })}
-                </select>
-              </label>
-              <label className="add_ability_form_option">
-                CHARASMA
-                <select
-                  onChange={this.take}
-                  name="charisma"
-                  value={this.state.charisma}
-                  type="number"
-                  className="character_input skill_input"
-                  placeholder=""
-                >
-                  {SKILL_OPTIONS.map((item) => {
+              
+              />
+             <AbilitySelect 
+                abilitySelectTitle="CHARISMA"
+                name="charisma"
+                onChange={this.take}
+                value={this.state.charisma}
+                abilitySelectList=
+                  {this.state.abilityOptions.map((item) => {
                     return <option key={item}>{item}</option>;
                   })}
-                </select>
-              </label>
+              
+              />
             </div>
             <div id="score_cal">
               <div className="add_character_form_title">
@@ -509,7 +495,11 @@ class AddCharacter extends React.Component {
             </button>
           </div>
         </div>
-        <div className="slider_right"></div>
+        <div className="slider_container">
+          <div className="slider" id="slider_right">
+          <img src="/arrow_right_blue.png" />
+          </div>
+          </div>
       </div>
     );
   }

@@ -7,8 +7,7 @@ class ProficiencySelect extends React.Component {
   }
 
   render() {
-    return (    
-        
+    return (           
         <label className="proficiency_select_container">
           <select
             onChange={this.props.onChange}

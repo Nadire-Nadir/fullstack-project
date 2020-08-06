@@ -1,7 +1,7 @@
 .skill_list{
     display: flex;
-    margin-top: 13px;
-    font-size: 1.6em;
+    margin: 30px 0 30px 0;
+    font-size: 1.8em;
     border-bottom: 2px solid rgb(199, 223, 238); 
 }
 
@@ -35,5 +35,5 @@
     text-align: center;
     width: 70%;
     height: 70%;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    box-shadow: 0 9px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }

@@ -2,7 +2,7 @@
     height: 100vh;
     width: 100vw;
     display: flex;
-    justify-content: center;    
+    justify-content: center;  
 }
 
 .page_content{
@@ -10,15 +10,51 @@
     width: 63vw;
 }
 
+#logo_header{
+    margin-top: 10px;
+    height: 120px;
+    width: 100%;   
+    box-shadow: 0 5px 10px rgba(116, 159, 187, 0.194), 0 5px 5px rgba(116, 159, 187, 0.283);
+    display: flex;
+    position: relative;
+}
+
+#app_logo{
+    font-size: 5em;
+    font-weight: bolder;
+    color: rgb(27, 154, 240);
+    padding-top: 20px;
+    flex: 8;
+}
+
+#sign_out_btn{
+    flex:1;
+    bottom:20px;
+    right: 40px;
+    position: absolute;
+}
+
+
+#sign_out_btn button{
+    font-size: 2em;
+    border: none;
+    background-color:#090809;
+    color: rgb(235, 47, 14);   
+}
+
 .page_header{
-    margin-top: 70px;
-    height: 200px;
+    margin-top: 10px;
+    height: 190px;
     border-bottom: 5px solid gray; 
+    display: flex;
+    position: relative;
 }
 
 .header_btn_div{
-    float: right;
-    margin: 20px 70px 0 0;
+    position: absolute;
+    flex: 1;
+    right: 0;
+    bottom: 0;
 }
 
 .header_btn{
@@ -29,13 +65,16 @@
     color:white;
     border: none;
     border-radius: 10px;
+    margin: 0 40px 50px 0;
 }
 
 .header_title{
+    position: absolute;
+    bottom: 0;
     font-size: 2.5em;
-    padding-top: 40px;
     margin-left: 70px;
     color: white;
+    flex: 1;
 }
 
 .add_form_group{

@@ -5,9 +5,10 @@ import { mapSpeed, calProSaving } from "../utils/utils";
 import { calBonus } from "../utils/utils";
 import { calProficiency } from "../utils/utils";
 import { calAC } from "../utils/utils";
-import { SAVING_THROWS, CLASS_PROFICIENCY} from "../config";
+import { SAVING_THROWS, CLASS_PROFICIENCY, RACE_LANGUAGE } from "../config";
 import Spinner from "../components/spinner";
 import SkillList from "../components/skillList";
+import AttacksList from "../components/attacksList";
 import SavingThrows from "./savingThrows";
 import Ability from "./ability";
 import "../styles/characterSheet.css";
@@ -50,10 +51,14 @@ class CharacterSheetData extends React.Component {
         </div>
       );
     }
-
     const checkedSaving = SAVING_THROWS[character.class.name];
-    const pickedSkills = [character.class.skill01, character.class.skill02, character.class.skill03, character.class.skill04];
-    
+    const pickedSkills = [
+      character.class.skill01,
+      character.class.skill02,
+      character.class.skill03,
+      character.class.skill04,
+    ];
+
     return (
       <div id="charactersheet_detail">
         <div id="frofile_block">
@@ -84,7 +89,7 @@ class CharacterSheetData extends React.Component {
 
         <div id="cha_core_info">
           <div className="block" id="block_01">
-            <div id="block_01_up">
+            
               <div id="core_skill_block">
                 <Ability
                   BOX_TITLE="STRENGTH"
@@ -210,13 +215,17 @@ class CharacterSheetData extends React.Component {
                         MOD="DEX"
                         SKILL="Acrobatics"
                         BONUS={calBonus(character.dexterity)}
+                        skillBonus={calProSaving(character.dexterity)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Acrobatics")}
-                         />
+                      />
                       <SkillList
                         PROF=""
                         MOD="WIS"
                         SKILL="Animal Handling"
                         BONUS={calBonus(character.wisdom)}
+                        skillBonus={calProSaving(character.wisdom)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Animal Handling")}
                       />
                       <SkillList
@@ -224,6 +233,8 @@ class CharacterSheetData extends React.Component {
                         MOD="INT"
                         SKILL="Arcana"
                         BONUS={calBonus(character.intelligence)}
+                        skillBonus={calProSaving(character.intelligence)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Arcana")}
                       />
                       <SkillList
@@ -231,6 +242,8 @@ class CharacterSheetData extends React.Component {
                         MOD="STR"
                         SKILL="Athletics"
                         BONUS={calBonus(character.strength)}
+                        skillBonus={calProSaving(character.strength)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Athletics")}
                       />
                       <SkillList
@@ -238,6 +251,8 @@ class CharacterSheetData extends React.Component {
                         MOD="CHA"
                         SKILL="Deception"
                         BONUS={calBonus(character.charisma)}
+                        skillBonus={calProSaving(character.charisma)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Deception")}
                       />
                       <SkillList
@@ -245,6 +260,8 @@ class CharacterSheetData extends React.Component {
                         MOD="INT"
                         SKILL="History"
                         BONUS={calBonus(character.intelligence)}
+                        skillBonus={calProSaving(character.intelligence)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("History")}
                       />
                       <SkillList
@@ -252,6 +269,8 @@ class CharacterSheetData extends React.Component {
                         MOD="WIS"
                         SKILL="Insight"
                         BONUS={calBonus(character.wisdom)}
+                        skillBonus={calProSaving(character.wisdom)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Insight")}
                       />
                       <SkillList
@@ -259,6 +278,8 @@ class CharacterSheetData extends React.Component {
                         MOD="CHA"
                         SKILL="Intimidation"
                         BONUS={calBonus(character.charisma)}
+                        skillBonus={calProSaving(character.charisma)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Intimidation")}
                       />
                       <SkillList
@@ -266,6 +287,8 @@ class CharacterSheetData extends React.Component {
                         MOD="INT"
                         SKILL="Investigation"
                         BONUS={calBonus(character.intelligence)}
+                        skillBonus={calProSaving(character.intelligence)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Investigation")}
                       />
                       <SkillList
@@ -273,6 +296,8 @@ class CharacterSheetData extends React.Component {
                         MOD="WIS"
                         SKILL="Medicine"
                         BONUS={calBonus(character.wisdom)}
+                        skillBonus={calProSaving(character.wisdom)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Medicine")}
                       />
                       <SkillList
@@ -280,6 +305,8 @@ class CharacterSheetData extends React.Component {
                         MOD="INT"
                         SKILL="Nature"
                         BONUS={calBonus(character.intelligence)}
+                        skillBonus={calProSaving(character.intelligence)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Nature")}
                       />
                       <SkillList
@@ -287,6 +314,8 @@ class CharacterSheetData extends React.Component {
                         MOD="WIS"
                         SKILL="Perception"
                         BONUS={calBonus(character.wisdom)}
+                        skillBonus={calProSaving(character.wisdom)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Perception")}
                       />
                       <SkillList
@@ -294,6 +323,8 @@ class CharacterSheetData extends React.Component {
                         MOD="CHA"
                         SKILL="Performance"
                         BONUS={calBonus(character.charisma)}
+                        skillBonus={calProSaving(character.charisma)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Performance")}
                       />
                       <SkillList
@@ -301,6 +332,8 @@ class CharacterSheetData extends React.Component {
                         MOD="CHA"
                         SKILL="Persuasion"
                         BONUS={calBonus(character.charisma)}
+                        skillBonus={calProSaving(character.charisma)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Persuasion")}
                       />
                       <SkillList
@@ -308,6 +341,8 @@ class CharacterSheetData extends React.Component {
                         MOD="INT"
                         SKILL="Religion"
                         BONUS={calBonus(character.intelligence)}
+                        skillBonus={calProSaving(character.intelligence)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Religion")}
                       />
                       <SkillList
@@ -315,6 +350,8 @@ class CharacterSheetData extends React.Component {
                         MOD="DEX"
                         SKILL="Sleight of Hand"
                         BONUS={calBonus(character.dexterity)}
+                        skillBonus={calProSaving(character.dexterity)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Sleight of Hand")}
                       />
                       <SkillList
@@ -322,6 +359,8 @@ class CharacterSheetData extends React.Component {
                         MOD="DEX"
                         SKILL="Stealth"
                         BONUS={calBonus(character.dexterity)}
+                        skillBonus={calProSaving(character.dexterity)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Stealth")}
                       />
                       <SkillList
@@ -329,36 +368,17 @@ class CharacterSheetData extends React.Component {
                         MOD="WIS"
                         SKILL="Survival"
                         BONUS={calBonus(character.wisdom)}
+                        skillBonus={calProSaving(character.wisdom)}
+                        proficiency={calProficiency(character.level)}
                         isChecked={pickedSkills.includes("Survival")}
                       />
                       <div className="box_title">SKILLS</div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="b_g" id="block_01_down">
-              <div className="content">
-                <div id="pro_lan_block">
-                  <div className="pro_lan_row">
-                    <div className="skills_heading">ARMOR</div>
-                    <div className="pro_lan_detail">
-                   
-                    </div>
-                  </div>
-                  <div className="pro_lan_row">
-                    <div className="skills_heading">WEAPONS</div>
-                    <div className="pro_lan_detail"></div>
-                  </div>
-                  <div className="pro_lan_row">
-                    <div className="skills_heading">LANGUAGES</div>
-                    <div className="pro_lan_detail"></div>
-                  </div>
-                </div>
-                <div className="box_title">PROFICIENCIES & LANGUAGE</div>
-              </div>
-            </div>
+              </div>          
           </div>
+
           <div className="block" id="block_02">
             <div id="hit_block">
               <div className="hit_block0" id="quick_info">
@@ -424,43 +444,152 @@ class CharacterSheetData extends React.Component {
                 <div className="skill_ul">
                   <div className="skill_list" id="skill_list_title">
                     <div className="li_item">NAME</div>
-                    <div className="li_item">ATK</div>
+                    <div className="li_item_atk atk_li_item_atk">ATK</div>
                     <div className="li_item">DAMAGE/TYPE</div>
                   </div>
+                  <AttacksList
+                        NAME="Scourge"
+                        ATK="+5"
+                        DAMAGE="1D6+2 Piercing"
+                  />
+                  <AttacksList
+                        NAME="Javelin"
+                        ATK="+5"
+                        DAMAGE="1D6+2 Piercing"
+                  />
+                  <AttacksList
+                        NAME="Wooden Stake"
+                        ATK="+5"
+                        DAMAGE="1D4+2"
+                  />
+                  <AttacksList
+                        NAME="Cure Wounds"
+                        ATK="-"
+                        DAMAGE="1D8 Healing"
+                  />
+                  <AttacksList
+                        NAME="Hunter's Mark"
+                        ATK="-"
+                        DAMAGE="1D6"
+                  />
+                  <AttacksList
+                        NAME="Heavy Crossbow"
+                        ATK="+3"
+                        DAMAGE="1D10 Piercing"
+                  />
+                  <AttacksList
+                        NAME="Branding Smite"
+                        ATK="-"
+                        DAMAGE="2D6+2 Radiant"
+                  />
+                  <AttacksList
+                        NAME="Dagger"
+                        ATK="+2"
+                        DAMAGE="1D4+2 Piercing"
+                  />
+                  <AttacksList
+                        NAME="Mace of Terror"
+                        ATK="+5"
+                        DAMAGE="1D6+2 Bludgeon"
+                  />
                 </div>
                 <div className="box_title">ATTACKS & SPELLCASTING</div>
               </div>
             </div>
-            <div className="b_g" id="equipment_block">
+            <div className="b_g">
               <div className="content">
-                <div className="box_title">EQUIPMENT</div>
+                <div id="pro_lan_block">
+                  <div className="pro_lan_row">
+                    <div className="skills_heading">ARMOR</div>
+                    <div className="pro_lan_detail">
+                      {CLASS_PROFICIENCY[character.class.name].armor.map(
+                        (item) => {
+                          return <ul key={item}><li>{item}.</li></ul>;
+                        }
+                      )}
+                    </div>
+                  </div>
+                  <div className="pro_lan_row">
+                    <div className="skills_heading">WEAPONS</div>
+                    <div className="pro_lan_detail">
+                      {CLASS_PROFICIENCY[character.class.name].weapon.map(
+                        (item) => {
+                          return <ul key={item}><li>{item}.</li></ul>;
+                        }
+                      )}
+                    </div>
+                  </div>
+                  <div className="pro_lan_row">
+                    <div className="skills_heading">LANGUAGES</div>
+                    <div className="pro_lan_detail">
+                      {RACE_LANGUAGE[character.race].map((item) => {
+                        return <ul key={item}><li>{item}.</li></ul>;
+                      })}
+                    </div>
+                  </div>
+                </div>
+                <div className="box_title">PROFICIENCIES & LANGUAGE</div>
               </div>
+               
             </div>
           </div>
 
           <div className="block" id="block_03">
             <div className="block_03_00 b_g ">
               <div className="content">
+                <ul>
+                  <li className="content_item">Enjoys finding the pattern in stories, only to try and think outside the box.</li>
+                  <li className="content_item">Introvert, and unfair to take on leadership roles.</li>
+                  <li className="content_item">Loves collaboration.</li>
+                </ul>
                 <div className="box_title">PERSONALITY TRAITS</div>
               </div>
             </div>
             <div className="block_03_00 b_g">
               <div className="content">
+                <ul>
+                  <li className="content_item">Gravitates towards all things horror.</li>
+                  <li className="content_item">Placing symbolism and details in writing.</li>
+                  <li className="content_item">Being accurate and mindfull of context</li>
+                </ul>
                 <div className="box_title">IDEALS</div>
               </div>
             </div>
             <div className="block_03_00 b_g">
               <div className="content">
+                <ul>
+                <li className="content_item">Knowledge on witchoraft, cryptids.</li>
+                <li className="content_item">Lifeling learner, enjoys research.</li>
+                <li className="content_item">Believes there is story in everythings</li>
+                </ul>
                 <div className="box_title">BONDS</div>
               </div>
             </div>
             <div className="block_03_00 b_g">
               <div className="content">
+                <ul>
+                <li className="content_item">Listens to fiction podcasts obsessively.</li>
+                <li className="content_item">Can get caught up in work and not be aware of surroundings.</li>
+                </ul>
                 <div className="box_title">FLAWS</div>
               </div>
             </div>
             <div className="block_03_01 b_g">
               <div className="content">
+                <div >
+                  <div className="feature_traits_title">CLASS FEATURES <p>{character.class.name} Features</p></div>
+                  <div className="feature_traits_title"></div>
+                  <div className="content_item"><p>Hiit Points:</p>PHB.pg.77</div>
+                  <div className="content_item"><p>Proficiencies:</p>{pickedSkills}</div>
+                </div>
+                <div>
+                  <div className="feature_traits_title">RACIAL TRAITS</div>
+                  <div className="content_item"><p>Darkvision:</p>You can see in darkness (shades of gray) up to 60 ft.</div>
+                  <div className="content_item"><p>Keen Senses:</p>You have proficiency in the Perception skill</div>
+                  <div className="content_item"><p>Key Ancestry:</p>You have advantage on saves against being charmed, and magic can't put you to sleep.</div>
+                  <div className="content_item"><p>Trance:</p>You don't need to sleep, but meditate semiconsciously for 4 hours a day. While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep.</div>
+                  <div className="content_item"><p>Fey Step:</p>You have proficiency with the longsword, shortsword, shortbow, and longbow</div>
+                </div>
                 <div className="box_title">FEATURES & TRAITS</div>
               </div>
             </div>
