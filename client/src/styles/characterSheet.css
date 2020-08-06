@@ -122,18 +122,8 @@
 #block_01 {
     flex: 3.5;
     display: flex;
-    flex-direction: column;
 }
 
-#block_01_up {
-    display: flex;
-    justify-content: space-between;
-    flex: 3;
-}
-
-#block_01_down {
-    flex: 1;
-}
 
 #core_skill_block {
     margin-right: 8px;
@@ -258,7 +248,7 @@
   }
 
 #saving_throws_container {
-    flex: 1.4;
+    flex: 1.2;
 }
 
 .saving_throws{   
@@ -270,7 +260,7 @@
 
 .saving_throws_row{
     flex: 1;
-    margin: 8px 0 8px 0;
+    margin: 16px 0 16px 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -310,33 +300,21 @@
 }
 
 #skill_details_container {
-    flex: 6;
+    flex: 6.2;
     position: relative;
 }
 
 #skill_list_title{
-    margin-bottom: 0;
+    padding-bottom: 15px;
 }
 
-#pro_lan_block{
-    display: flex;
-    flex-direction: column;
-    height: 80%;
-    margin: 16px;
+.atk_li_item{
+    margin: 6px 0 6px 0;
 }
 
-.pro_lan_row{
-    flex:1;
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    border-bottom: 1px solid rgb(199, 223, 238); 
+.atk_li_item_atk{
+    flex: 0.8;
 }
-
-.pro_lan_detail{
-    margin-top: 20px;
-    font-size: 1.2em;
-}
-
 
 #block_02 {
     flex: 3;
@@ -419,11 +397,39 @@
 }
 
 #atk_spl {
-    flex: 1.1;
+    flex: 1;
 }
 
-#equipment_block{
-    flex: 0.65;
+
+#pro_lan_block{
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;  
+    margin: 10px 10px 50px 10px;
+}
+
+.pro_lan_row{
+    flex:1;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(199, 223, 238); 
+}
+
+.pro_lan_detail{
+    margin: 5px;
+    font-size: 1.2em;
+    float: left;
+}
+
+.pro_lan_detail ul{
+    list-style-type: none;
+    float: left;
+    margin: 2px;
+    padding:0;
+}
+
+.pro_lan_detail li{
+    margin: 2px;
 }
 
 #block_03 {
@@ -439,6 +445,27 @@
 
 .block_03_01{
     flex: 5;
+}
+
+.attack_list{
+    margin-top: 0;
+}
+
+.feature_traits_title{
+    color: rgb(27, 154, 240);
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.content_item{
+    font-size: 1.5em;
+    margin-top: 20px;
+  
+}
+
+.content_item p{
+    font-weight: 700;
 }
 
 

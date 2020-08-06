@@ -13,7 +13,7 @@ export const SavingThrows = (props) => (
     <div className="saving_throws_ability_name">{props.saving_name}</div>
     <div className="saving_throws_ability_modifier">
       <div className=" border b_g bonus_box">
-        {props.isChecked ? `+${props.proSaving + props.proficiency}` : props.saving}
+        {props.isChecked ? `+${props.proficiency + props.proSaving}` : props.saving}
       </div>
     </div>
   </div>
