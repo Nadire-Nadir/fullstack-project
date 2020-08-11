@@ -44,6 +44,7 @@ const AddProficiency = (props) => (
                 <ProficiencySelect
                   name={item}
                   class_name={props.class_name}
+                  onChange={props.onChange}
                 />
               }
             </div>

@@ -12,6 +12,45 @@ export const RACE_LANGUAGE = {
     "Human": ["Common"]
 }
 
+export const RACE_INFO = {
+    "Tiefling": {
+        "info": "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling." ,
+        "Racial": "+2 Charisma, +1 Intelligence, Darkvision, Hellish Resistance, Infernal Legacy"
+    },
+    "Dragonborn": {
+        "info": "Dragonborn look very much like dragons standing erect in humanoid form, though they lack wings or a tail.",
+        "Racial": "+2 Strength, +1 Charisma, Draconic Ancestry, Breath Weapon, Damage Resistance"
+    },
+    "Dwarf": {
+        "info": "Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal.",
+        "Racial": "+2 Constitution, Darkvision, Dwarven Resilience, Dwarven Combat Training, Stonecunning"
+    },
+    "Elf": {
+        "info": "Elves are a magical people of otherworldly grace, living in the world but not entirely part of it.",
+        "Racial": "+2 Dexterity, Darkvision, Keen Senses, Fey Ancestry, Trance"
+    },
+    "Gnome": {
+        "info": "A gnome’s energy and enthusiasm for living shines through every inch of his or her tiny body.",
+        "Racial": "+2 Intelligence, Darkvision, Gnome Cunning"
+    },
+    "Half-Elf": {
+        "info": "Half-elves combine what some say are the best qualities of their elf and human parents.",
+        "Racial": "+2 Charisma, +1 to Two Other Ability Scores, Darkvision, Fey Ancestry, Skill Versatility"
+    },
+    "Half-Orc": {
+        "info": "Half-orcs’ grayish pigmentation, sloping foreheads, jutting jaws, prominent teeth, and towering builds make their orcish heritage plain for all to see.",
+        "Racial": "+2 Strength, +1 Constitution, Darkvision, Menacing, Relentless Endurance, Savage Attacks"
+    },
+    "Halfling": {
+        "info": "The diminutive halflings survive in a world full of larger creatures by avoiding notice or, barring that, avoiding offense.",
+        "Racial": "+2 Dexiterity, Lucky, Brave, Halfling Nimbleness"
+    },
+    "Human": {
+        "info": "Humans are the most adaptable and ambitious people among the common races. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.",
+        "Racial": "+1 to All Ability Scores, Extra Language"
+    },
+}
+
 export const SAVING_THROWS = { 
     "Barbarian": ["STR","CON"], 
     "Bard": ["DEX","CHA"],
@@ -39,7 +78,7 @@ export const CLASS_PROFICIENCY = {
         "skills":["Choose a Skill","Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
         "armor": ["Light armor", "Midium armor", "Shields"],
         "weapon": ["Simple weapons", "Martial weapons"],
-        "saves": ["STR","CON"] },
+        "saves": ["STR","CON"],},
     "Bard": {
         "skill_num":["skill01","skill02", "skill03"],
         "skills": ["Choose a Skill","Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
@@ -107,3 +146,4 @@ export const CLASS_PROFICIENCY = {
         "weapon": ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light crossbows"],
         "saves": ["INT","WIS"]},
 }
+

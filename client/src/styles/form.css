@@ -79,7 +79,6 @@
 
 .add_form_group{
     flex: 3;
-
 }
 
 .form_content{
@@ -100,6 +99,7 @@
 
 .action_btns {
     outline: none;
+    cursor: pointer;
 }
 
 

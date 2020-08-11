@@ -190,7 +190,9 @@ class AddCharacter extends React.Component {
           )}
 
           {this.state.activeView === 2 && 
-            <AddRace handleRaceClick={this.handleRaceClick} />}
+            <AddRace 
+            handleRaceClick={this.handleRaceClick} 
+            />}
 
           {this.state.activeView === 3 && (
             <AddClass
@@ -229,6 +231,7 @@ class AddCharacter extends React.Component {
           {this.state.activeView === 6 && (
             <AddAction 
               onClick={this.publish}
+            
             />
           )}
         </div>

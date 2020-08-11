@@ -7,9 +7,9 @@ export const Header = (props) => (
   <div id="page">
   <div id="logo_header">
       <div id="app_logo">LOGO</div>
-      <div className="action_btns" id="sign_out_btn">
+      <div id="sign_out_btn">
           <Link to="/signIn">
-            <button style={props.homeSignOut}>Sign out</button>
+            <button className="action_btns" style={props.homeSignOut}>Sign out</button>
           </Link>
         </div>
       </div>
