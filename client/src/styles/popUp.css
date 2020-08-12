@@ -3,7 +3,7 @@
 }
 
 .select_popup{
-    top: 250px;
+    top: 350px;
     width: 1000px;
     height: 1200px;
     left: calc((100% - 1000px)/2);

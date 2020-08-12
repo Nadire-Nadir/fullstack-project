@@ -38,6 +38,11 @@
     height: 64px;
 }
 
+.slider img:hover{
+    width: 80px;
+    height: 80px;
+}
+
 #add_character_content{
     flex: 3;
     background-color:  white;
