@@ -1,6 +1,6 @@
 # Welcome to the RolePlayGame Assistant App
 
-This RolePlayGame Assistant App (RPG app) is a digital toolset for Dungeons & Dragons. It is a character creater to help the new players in D&D to make their D&D characters. It provides user authentification, digital tools like a character builder, digital characte sheet to view all the information about the users' characters including all the calculated score and bonuses, last and not least listing all the builted characters in My Character page for user to manage, like view, delete and edit. 
+This RolePlayGame Assistant App (RPG app) is a digital toolset for Dungeons & Dragons. It is a character creator to help the new players in D&D to make their D&D characters. It provides user authentication, digital tools like a character builder, digital character sheet to view all the information about the users' characters including all the calculated score and bonuses, last and not least listing all the built characters in My Character page for user to manage, like view, delete and edit. 
 
 # This App is created by using the following libraries
 
