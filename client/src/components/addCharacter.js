@@ -1,14 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router";
-import "../styles/addCharacter.css";
-import "../styles/form.css";
 import AddName from "./addName";
 import AddRace from "./addRace";
 import AddClass from "./addClass";
 import AddAbility from "./addAbility";
 import AddProficiency from "./addProficiency";
 import AddAction from "./addAction";
+import "../styles/addCharacter.css";
+import "../styles/form.css";
 
 class AddCharacter extends React.Component {
   constructor(props) {

@@ -97,7 +97,7 @@ class logIn extends React.Component {
             <div className="add_form_group" id="signUp-block">
               <p>NEW USER?</p>
               <Link to="/createAccount">
-                <button type="button" onClick={this.publish}>
+                <button type="button" className="action_btns">
                   SIGN UP
                 </button>
               </Link>

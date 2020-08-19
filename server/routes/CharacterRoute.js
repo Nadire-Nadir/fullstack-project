@@ -35,6 +35,15 @@ module.exports = (app) => {
         });
     });
 
+    app.get("/character/:id", (req,res) => {
+        MyCharacter.findById(req.params.id, (err, Character) => {
+            if (err) {
+                console.log('Error', err);
+            }
+            return res.json(Character);
+        });
+    });
+
     app.delete("/character/:id", (req, res) => {
         MyCharacter.deleteOne({
             _id: req.params.id
@@ -44,15 +53,6 @@ module.exports = (app) => {
             }
             return res.json({ message: "Character Deleted!"});
         })
-    });
-
-    app.get("/character/:id", (req,res) => {
-        MyCharacter.findById(req.params.id, (err, Character) => {
-            if (err) {
-                console.log('Error', err);
-            }
-            return res.json(Character);
-        });
     });
 
 
